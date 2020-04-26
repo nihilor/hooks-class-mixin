@@ -1,15 +1,15 @@
 /*
-Hooks are a concept of modifying the behaviour of a program by injecting code without changing the original code.
+Hooks are a concept of modifying the behaviour of a program by adding code without changing the original code. This externally code is provided via latches, which are actively collected by the program. Latches can provide and run their own code, or change what the program is doing or outputting by default.
 */
 
 let errorMessages = {
     1:  `.latch() expects at least two arguments, a hook name and a callback.`,
     2:  '.latch() expects a string for the hook name.',
-    3:  '.latch() expects a function for the hook callback.',
+    3:  '.latch() expects a function for the latch callback.',
     10: '.unlatch() expects exactly two arguments, the latch id and the hook name.',
     11: '.unlatch() expects a Symbol for the latch id.',
     12: '.unlatch() expects a string for the hook name.',
-    20: '.hook() expects exactly one argument, a hook name.',
+    20: '.hook() expects at least two arguments, the hook name and the initial result.',
     21: '.hook() expects a string for the hook name.'
 }
 
@@ -20,7 +20,7 @@ class HooksClassMixin {
         this.latch.apply(this, arguments)
     }
 
-    latch (hookName, hookCallback, hookParams) {
+    latch (hookName, latchCallback, ...latchParams) {
         //  check
         if (arguments.length < 2)
             throw new Error(errorMessages[1])
@@ -30,15 +30,16 @@ class HooksClassMixin {
             throw new TypeError(errorMessages[3])
 
         //  register hook
-        this.hook(hookName)
+        if (hookName in this._hooks === false)
+            this._hooks[hookName] = []
 
         //  add latch
         let latchId = Symbol(`Latch for the hook '${hookName}'`)
             this._hooks[hookName].push({
-            id: latchId,
-            fn: hookCallback,
-            pr: hookParams
-        })
+                id: latchId,
+                fn: latchCallback,
+                pr: latchParams
+            })
 
         return latchId
     }
@@ -57,16 +58,21 @@ class HooksClassMixin {
             this._hooks[hookName] = this._hooks[hookName].filter(latch => latch.id !== latchId)
     }
 
-    hook (hookName) {
+    hook (hookName, result, ...hookParams) {
         //  check
-        if (arguments.length !== 1)
+        if (arguments.length < 2)
             throw new Error(errorMessages[20])
         if (typeof arguments[0] !== 'string')
             throw new TypeError(errorMessages[21])
 
-        //  initialize hook
-        if (hookName in this._hooks === false)
-            this._hooks[hookName] = []
+        //  pick up latches
+        if (hookName in this._hooks) {
+            this._hooks[hookName].forEach(latch => {
+                result = latch.fn.apply(this, hookParams.concat(result, latch.pr))
+            })
+        }
+
+        return result
     }
 }
 
