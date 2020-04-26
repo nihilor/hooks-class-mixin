@@ -6,7 +6,7 @@ let errorMessages = {
     1:  `.latch() expects at least two arguments, a hook name and a callback.`,
     2:  '.latch() expects a string for the hook name.',
     3:  '.latch() expects a function for the hook callback.',
-    10: '.unlatch() expects at least one arguments, the latch id and optionally the hook name.',
+    10: '.unlatch() expects exactly two arguments, the latch id and the hook name.',
     11: '.unlatch() expects a Symbol for the latch id.',
     12: '.unlatch() expects a string for the hook name.',
     20: '.hook() expects exactly one argument, a hook name.',
