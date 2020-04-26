@@ -4,7 +4,7 @@
   "description": "A class mixin for a simple Hooks implementation in Javascript.",
   "main": "hooks.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./tst/example.js"
   },
   "repository": {
     "type": "git",
