@@ -31,11 +31,11 @@ class HooksClassMixin {
 
         //  add latch
         let latchId = Symbol(`Latch for the hook '${hookName}'`)
-            this._hooks[hookName].push({
-                id: latchId,
-                fn: latchCallback,
-                pr: latchParams
-            })
+        this._hooks[hookName].push({
+            id: latchId,
+            fn: latchCallback,
+            pr: latchParams
+        })
 
         return latchId
     }

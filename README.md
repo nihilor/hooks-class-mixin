@@ -45,6 +45,14 @@ let   anObject = {}
 Object.assign(anObject, hooksMixin)
 ```
 
+## Install
+
+The mixin is available, installable and manageable via NPM.
+
+```shell
+npm install hooks-class-mixin --save
+```
+
 ## API
 
 ### Create a latch
