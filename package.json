@@ -1,7 +1,7 @@
 {
   "name": "hooks-class-mixin",
-  "version": "0.0.1",
-  "description": "A mixin for a simple Hooks implementation in Javascript.",
+  "version": "0.0.2",
+  "description": "A mixin for a simple, resusable Hooks implementation in Javascript.",
   "main": "hooks.js",
   "scripts": {
     "test": "node ./examples/longshort.assign.js"

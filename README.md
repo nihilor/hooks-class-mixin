@@ -1,6 +1,6 @@
 # hooks-class-mixin
 
-A mixin for a simple Hooks implementation in Javascript.
+A mixin for a simple, resusable Hooks implementation in Javascript.
 
 ## What?
 
@@ -18,13 +18,65 @@ class AClass extends HooksClassMixin {}
 let   anObject = new AClass()
 ```
 
-Compose a class by assign the object properties:
+Compose a class by assigning the object properties:
 
 ```javascript
 const hooksMixin = require('hooks-class-mixin/index.object')
 class AClass {}
 Object.assign(MyClass.prototype, hooksMixin)
 let   anObject = new AClass()
+```
+
+## API
+
+### Create a latch
+
+To create a latch, call `latch` or its shortform `at`, specifiy the hooks name and provide a callback:
+
+```javascript
+latch (hookName, latchCallback, [...latchParams]): latchId
+at    (hookName, latchCallback, [...latchParams]): latchId
+```
+
+`latch()` returns the latch id to explicitly identify the latch. This id is a Javascript Symbol and must be stored in a variable.
+
+*Optional:* You may provide additional parameters for the latch that will be passed through the callback of the latch.
+
+```javascript
+let latchId = anObject.latch('userinput', (result) => `the user typed '${result}'`)
+```
+
+### Collect latches
+
+To collect the latches, call `hook`. Provide the hooks name and the origin result. The function will call every registered callback, passing the origin and modified result through all callbacks.
+
+```javascript
+hook (hookName, result, [...hookParams]): result
+```
+
+`hook()` returns the final result.
+
+*Optional:* You may provide additional parameters for the hook that will be passed through the callbacks of the latches.
+
+```javascript
+console.log(
+    anObject.hook('userinput', 'Hello world!')
+)
+// log output: the user typed 'Hello world!'
+```
+
+### Remove a latch
+
+It's also possible to remove a previously created latch. Call `unlatch`, provide the latch id returned by `latch` or `at` and also provide the hooks name. The hooks name wouldn't be necessary, but serves as an additional locking mechanism to prevent accidental deletion. 
+
+```javascript
+unlatch (latchId, hookName)
+```
+
+`unlatch()` returns nothing.
+
+```javascript
+anObject.unlatch(latchId, 'userinput')
 ```
 
 ## LongShort Example
