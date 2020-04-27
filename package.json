@@ -1,16 +1,16 @@
 {
   "name": "hooks-class-mixin",
   "version": "0.0.1",
-  "description": "A class mixin for a simple Hooks implementation in Javascript.",
+  "description": "A mixin for a simple Hooks implementation in Javascript.",
   "main": "hooks.js",
   "scripts": {
-    "test": "node ./tst/example.js"
+    "test": "node ./examples/longshort.assign.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nihilor/hooks-class-mixin.git"
   },
-  "keywords": [],
+  "keywords": ["hooks", "latches", "mixin", "pattern"],
   "author": "Mark Lubkowitz <me@mlu.io>",
   "license": "MIT",
   "bugs": {

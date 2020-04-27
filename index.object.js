@@ -1,7 +1,3 @@
-/*
-Hooks are a concept of modifying the behaviour of a program by adding code without changing the original code. This externally code is provided via latches, which are actively collected by the program. Latches can provide and run their own code, or change what the program is doing or outputting by default.
-*/
-
 let errorMessages = {
     1:  `.latch() expects at least two arguments, a hook name and a callback.`,
     2:  '.latch() expects a string for the hook name.',

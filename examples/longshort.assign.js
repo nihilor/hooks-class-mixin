@@ -1,33 +1,44 @@
 const hooksMixin = require('../index.object.js')
 class LongShort {}
 Object.assign(LongShort.prototype, hooksMixin)
-let ls = new LongShort()
+let   ls = new LongShort()
 
+//  a. shorten Read-eval-print loop to REPL
 ls.latch(
     'shorten',
     result => { return result === 'Read-eval-print loop' ? 'REPL' : result }
 )
-ls.at(
+//  b. shorten Javascript to JavaS.
+ls.latch(
     'shorten',
     result => { return result === 'Javascript' ? 'JavaS.' : result }
 )
-ls.at(
+//  c. shorten JavaS. to JS
+ls.latch(
     'shorten',
     result => { return result === 'JavaS.' ? 'JS' : result }
 )
+//  d. lengthens REPL to Read-eval-print loop
 ls.latch(
     'lengthen',
     result => { return result === 'REPL' ? 'Read-eval-print loop' : result }
 )
-ls.at(
+//  e. lengthens JS to Javascript
+ls.latch(
     'lengthen',
-    result => { return result === 'JS' ? 'Javascript' : result }
+result => { return result === 'JS' ? 'Javascript' : result }
 )
 
-console.log('Test =>', ls.hook('shorten', 'Test'))
-console.log('Javascript =>', ls.hook('shorten', 'Javascript'))
-console.log('Read-eval-print loop =>', ls.hook('shorten', 'Read-eval-print loop'))
+//  nothing changes
+console.log('1. Test =>', ls.hook('shorten', 'Test'))
+//  Read-eval-print loop will be shortened to REPL (a)
+console.log('2. Read-eval-print loop =>', ls.hook('shorten', 'Read-eval-print loop'))
+//  Javascript will be shortened to JavaS. and then to JS (b, c)
+console.log('3. Javascript =>', ls.hook('shorten', 'Javascript'))
 
-console.log('Test =>', ls.hook('lengthen', 'Test'))
-console.log('JS =>', ls.hook('lengthen', 'JS'))
-console.log('REPL =>', ls.hook('lengthen', 'REPL'))
+//  nothing changes
+console.log('4. Test =>', ls.hook('lengthen', 'Test'))
+//  JS will be lengthened to Javascript (e)
+console.log('5. JS =>', ls.hook('lengthen', 'JS'))
+//  REPL will be lengthened to Read-eval-print loop (d)
+console.log('6. REPL =>', ls.hook('lengthen', 'REPL'))
