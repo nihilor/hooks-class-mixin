@@ -1,6 +1,6 @@
 {
   "name": "hooks-class-mixin",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A mixin for a simple, resusable Hooks implementation in Javascript.",
   "main": "index.object.js",
   "scripts": {

@@ -13,7 +13,7 @@ class HooksClassMixin {
     _hooks = {}
 
     at () {
-        this.latch.apply(this, arguments)
+        return this.latch.apply(this, arguments)
     }
 
     latch (hookName, latchCallback, ...latchParams) {

@@ -13,7 +13,7 @@ let hooksMixin = {
     _hooks: {},
 
     at: function () {
-        this.latch.apply(this, arguments)
+        return this.latch.apply(this, arguments)
     },
 
     latch: function (hookName, latchCallback, ...latchParams) {
