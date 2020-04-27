@@ -23,8 +23,26 @@ Compose a class by assigning the object properties:
 ```javascript
 const hooksMixin = require('hooks-class-mixin/index.object')
 class AClass {}
-Object.assign(MyClass.prototype, hooksMixin)
+Object.assign(AClass.prototype, hooksMixin)
 let   anObject = new AClass()
+```
+
+Compose an object by assigning the object properties:
+
+```javascript
+const hooksMixin = require('hooks-class-mixin/index.object')
+let   anObject = {}
+Object.assign(anObject, hooksMixin)
+```
+
+Please note the difference between assigning the hooks mixin to a class or to an object. For classes you have to add the properties to `prototype`.
+
+```javascript
+class AClass {}
+Object.assign(AClass.prototype, hooksMixin)
+
+let   anObject = {}
+Object.assign(anObject, hooksMixin)
 ```
 
 ## API
